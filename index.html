@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MERIDIAN INTEL — Geopolitical Intelligence Monitor. Open-source intelligence aggregation for the Iran-US-Israel conflict.">
+  <title>MERIDIAN INTEL — Geopolitical Intelligence Monitor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./base.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./dashboard.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- ================================================================
+       HEADER / TOP BAR
+  ================================================================ -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <!-- Logo -->
+      <div class="header-logo" aria-label="MERIDIAN INTEL">
+        <svg class="logo-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <!-- Crosshair/compass icon -->
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="12" y1="3" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="12" y1="15" x2="12" y2="21" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="3" y1="12" x2="9" y2="12" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="15" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-name">MERIDIAN</span>
+          <span class="logo-subtitle">GEOPOLITICAL INTELLIGENCE MONITOR</span>
+        </div>
+      </div>
+
+      <!-- Header Center: Live Clock -->
+      <div class="header-clock" role="timer" aria-live="polite" aria-label="Current time">
+        <span class="clock-label">IST</span>
+        <span class="clock-time" id="live-clock">--:--:--</span>
+        <span class="clock-date" id="live-date">-- --- ----</span>
+      </div>
+
+      <!-- Header Right: Threat Level + Toggle -->
+      <div class="header-controls">
+        <div class="threat-level" aria-label="Threat level: CRITICAL">
+          <span class="pulse-dot pulse-critical" aria-hidden="true"></span>
+          <span class="threat-label">THREAT LEVEL</span>
+          <span class="threat-value critical">CRITICAL</span>
+        </div>
+        <button class="theme-toggle-btn" data-theme-toggle aria-label="Toggle light/dark mode">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="display:none">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+        </button>
+        <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================================================================
+       THREAT ASSESSMENT BANNER
+  ================================================================ -->
+  <div class="threat-banner" role="alert" aria-live="assertive">
+    <div class="threat-banner-inner">
+      <div class="threat-banner-left">
+        <span class="pulse-dot pulse-critical" aria-hidden="true"></span>
+        <span class="banner-op-name">ACTIVE CONFLICT — OPERATION EPIC FURY / ROARING LION</span>
+      </div>
+      <div class="threat-banner-center">
+        US-Israel joint strikes on Iran underway. Iranian retaliation in progress.
+      </div>
+      <div class="threat-banner-right">
+        <span class="banner-updated">UPDATED <span id="banner-timestamp">28 FEB 2026 / 17:30 IST</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       MAIN DASHBOARD LAYOUT
+  ================================================================ -->
+  <div class="dashboard-wrapper" id="main-content">
+    <!-- ============================================================
+         SECTION: METRICS ROW
+    ============================================================ -->
+    <section class="metrics-section" aria-label="Key metrics">
+      <div class="metrics-grid">
+        <div class="metric-card critical" role="status">
+          <div class="metric-label">CONFLICT STATUS</div>
+          <div class="metric-value critical">ACTIVE COMBAT</div>
+          <div class="metric-sub">
+            <span class="pulse-dot pulse-critical-sm" aria-hidden="true"></span>ONGOING
+          </div>
+        </div>
+        <div class="metric-card critical" role="status">
+          <div class="metric-label">THREAT TO ISRAEL</div>
+          <div class="metric-value critical">CRITICAL</div>
+          <div class="metric-sub">
+            <span class="pulse-dot pulse-critical-sm" aria-hidden="true"></span>BALLISTIC INBOUND
+          </div>
+        </div>
+        <div class="metric-card warning" role="status">
+          <div class="metric-label">BRENT CRUDE</div>
+          <div class="metric-value warning tabnum">$72.87</div>
+          <div class="metric-sub metric-delta-up">&#9650; +3.4% / +$2.41</div>
+        </div>
+        <div class="metric-card warning" role="status">
+          <div class="metric-label">STRAIT OF HORMUZ</div>
+          <div class="metric-value warning">ELEVATED RISK</div>
+          <div class="metric-sub">13M BBL/DAY AT RISK</div>
+        </div>
+        <div class="metric-card critical" role="status">
+          <div class="metric-label">AIRSPACE</div>
+          <div class="metric-value critical">CLOSED</div>
+          <div class="metric-sub">IR / IL / JO / IQ / LB</div>
+        </div>
+        <div class="metric-card critical" role="status">
+          <div class="metric-label">NUCLEAR RISK</div>
+          <div class="metric-value critical">HIGH</div>
+          <div class="metric-sub">FORDOW / NATANZ TARGETED</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         MAIN CONTENT: Timeline + Sidebar
+    ============================================================ -->
+    <div class="content-grid">
+
+      <!-- =============================================
+           LEFT: LIVE INTELLIGENCE TIMELINE
+      ============================================= -->
+      <main class="timeline-column">
+        <div class="column-header">
+          <h2 class="column-title">
+            <span class="pulse-dot pulse-critical-sm" aria-hidden="true"></span>
+            LIVE INTELLIGENCE FEED
+          </h2>
+          <span class="column-meta">MOST RECENT FIRST — <span id="event-count">10</span> ENTRIES</span>
+        </div>
+
+        <ol class="timeline-list" role="list" aria-label="Intelligence timeline">
+
+          <!-- Entry 1 -->
+          <li class="timeline-entry flash">
+            <div class="entry-meta">
+              <time class="entry-time" datetime="2026-02-28T17:30:00+05:30">28 FEB 2026 / 17:30 IST</time>
+              <span class="entry-tag flash">FLASH</span>
+              <span class="entry-source irgc">IRGC</span>
+            </div>
+            <div class="entry-content">
+              Second wave of ballistic missiles launched toward Israel. IRGC confirms additional strikes incoming.
+            </div>
+          </li>
+
+          <!-- Entry 2 -->
+          <li class="timeline-entry flash">
+            <div class="entry-meta">
+              <time class="entry-time" datetime="2026-02-28T17:18:00+05:30">28 FEB 2026 / 17:18 IST</time>
+              <span class="entry-tag flash">FLASH</span>
+              <span class="entry-source idf">IDF</span>
+            </div>
+            <div class="entry-content">
+              Israeli Air Force intercepting second barrage of Iranian missiles. Iron Dome and Arrow systems active across northern and central Israel.
+            </div>
+          </li>
+
+          <!-- Entry 3 -->
+          <li class="timeline-entry urgent">
+            <div class="entry-meta">
+              <time class="entry-time" datetime="2026-02-28T17:05:00+05:30">28 FEB 2026 / 17:05 IST</time>
+              <span class="entry-tag urgent">URGENT</span>
+              <span class="entry-source media">MEDIA</span>
+            </div>
+            <div class="entry-content">
+              Reports: Ali Shamkhani, Secretary of Supreme National Security Council, killed in strikes. Khamenei status unknown — relocated to secure location. Information unverified.
+            </div>
+          </li>
+
+          <!-- Entry 4 -->
+          <li class="timeline-entry urgent">
+            <div class="entry-meta">
+              <time class="entry-time" datetime="2026-02-28T16:58:00+05:30">28 FEB 2026 / 16:58 IST</time>
+              <span class="entry-tag urgent">URGENT</span>
+              <span class="entry-source potus">POTUS</span>
+            </div>
+            <div class="entry-content">
+              Trump: "We are going to obliterate their missiles and dismantle their missile industry completely." Operation to continue "as long as necessary."
+            </div>
+          </li>
+
+          <!-- Entry 5 -->
+          <li class="timeline-entry flash">
+            <div class="entry-meta">
+              <time class="entry-time" datetime="2026-02-28T16:45:00+05:30">28 FEB 2026 / 16:45 IST</time>
+              <span class="entry-tag flash">FLASH</span>
+              <span class="entry-source idf">IDF</span>
+            </div>
+            <div class="entry-content">
+              IDF declares "broad strike" on Iran's defense systems completed. State of emergency declared across Israel. Home front command issues instructions to civilians.
+            </div>
+          </li>
+
+          <!-- Entry 6 -->
+          <li class="timeline-entry urgent">
+            <div class="entry-meta">
+              <time class="entry-time" datetime="2026-02-28T16:30:00+05:30">28 FEB 2026 / 16:30 IST</time>
+              <span class="entry-tag urgent">URGENT</span>
+              <span class="entry-source media">MEDIA</span>
+            </div>
+            <div class="entry-content">
+              Iran's foreign ministry: "Armed Forces will respond decisively to aggressors." Tehran preparing "crushing" retaliation. Parliament session convened in emergency.
+            </div>
+          </li>
+
+          <!-- Entry 7 -->
+          <li class="timeline-entry flash">
+            <div class="entry-meta">
+              <time class="entry-time" datetime="2026-02-28T16:12:00+05:30">28 FEB 2026 / 16:12 IST</time>
+              <span class="entry-tag flash">FLASH</span>
+              <span class="entry-source osint">OSINT</span>
+            </div>
+            <div class="entry-content">
+              Explosions confirmed in Tehran, Isfahan, Qom, Karaj, Kermanshah. Strikes near Supreme Leader Khamenei's compound — 7 missiles confirmed hitting the area. Heavy smoke visible over Parchin military complex.
+            </div>
+          </li>
+
+          <!-- Entry 8 -->
+          <li class="timeline-entry urgent">
+            <div class="entry-meta">
+              <time class="entry-time" datetime="2026-02-28T15:50:00+05:30">28 FEB 2026 / 15:50 IST</time>
+              <span class="entry-tag urgent">URGENT</span>
+              <span class="entry-source potus">POTUS</span>
+            </div>
+            <div class="entry-content">
+              Trump confirms "major combat operations" in Iran. Operation codenamed "Epic Fury." Netanyahu: "Operation Roaring Lion / Shield of Judah." Joint statement from White House and PMO.
+            </div>
+          </li>
+
+          <!-- Entry 9 -->
+          <li class="timeline-entry flash">
+            <div class="entry-meta">
+              <time class="entry-time" datetime="2026-02-28T15:32:00+05:30">28 FEB 2026 / 15:32 IST</time>
+              <span class="entry-tag flash">FLASH</span>
+              <span class="entry-source idf">IDF</span>
+            </div>
+            <div class="entry-content">
+              Israel launches pre-emptive strike on Iran. IAF aircraft and naval forces participating. Defense Minister Katz declares immediate state of emergency across all districts.
+            </div>
+          </li>
+
+          <!-- Entry 10 -->
+          <li class="timeline-entry routine">
+            <div class="entry-meta">
+              <time class="entry-time" datetime="2026-02-27T14:00:00+05:30">27 FEB 2026 / 14:00 IST</time>
+              <span class="entry-tag routine">ROUTINE</span>
+              <span class="entry-source media">MEDIA</span>
+            </div>
+            <div class="entry-content">
+              Nuclear talks in Geneva conclude without deal. Iran rejects demands to dismantle Fordow, Natanz, Isfahan facilities. Oman mediation effort officially collapsed.
+            </div>
+          </li>
+
+        </ol>
+
+        <!-- =============================================
+             REGIONAL SCHEMATIC MAP
+        ============================================= -->
+        <section class="map-section" aria-label="Regional map">
+          <div class="column-header">
+            <h2 class="column-title">REGIONAL SITUATION MAP</h2>
+            <span class="column-meta">SCHEMATIC — NOT TO SCALE</span>
+          </div>
+          <div class="map-container">
+            <svg class="region-map" viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Middle East schematic map showing conflict zones">
+
+              <!-- Background -->
+              <rect width="800" height="480" fill="var(--color-bg)"/>
+
+              <!-- Grid lines (subtle) -->
+              <g class="map-grid" opacity="0.08">
+                <line x1="0" y1="120" x2="800" y2="120" stroke="var(--color-border)" stroke-width="0.5"/>
+                <line x1="0" y1="240" x2="800" y2="240" stroke="var(--color-border)" stroke-width="0.5"/>
+                <line x1="0" y1="360" x2="800" y2="360" stroke="var(--color-border)" stroke-width="0.5"/>
+                <line x1="200" y1="0" x2="200" y2="480" stroke="var(--color-border)" stroke-width="0.5"/>
+                <line x1="400" y1="0" x2="400" y2="480" stroke="var(--color-border)" stroke-width="0.5"/>
+                <line x1="600" y1="0" x2="600" y2="480" stroke="var(--color-border)" stroke-width="0.5"/>
+              </g>
+
+              <!-- ---- IRAN (center-right, highlighted critical red) ---- -->
+              <g class="country-iran">
+                <polygon points="490,80 560,70 610,90 640,140 620,190 600,220 570,240 530,230 500,210 470,190 460,160 470,120" fill="#f85149" fill-opacity="0.15" stroke="#f85149" stroke-width="1.5"/>
+                <text x="535" y="160" text-anchor="middle" font-family="var(--font-mono)" font-size="13" font-weight="600" fill="#f85149">IRAN</text>
+                <text x="535" y="175" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="#f85149" opacity="0.8">UNDER STRIKE</text>
+                <!-- Tehran -->
+                <circle cx="540" cy="140" r="5" fill="#f85149"/>
+                <text x="548" y="137" font-family="var(--font-mono)" font-size="9" fill="#f85149">TEHRAN</text>
+                <!-- Isfahan -->
+                <circle cx="520" cy="190" r="4" fill="#f85149" fill-opacity="0.8"/>
+                <text x="528" y="187" font-family="var(--font-mono)" font-size="8" fill="#f85149" opacity="0.8">ISFAHAN</text>
+                <!-- Fordow/Natanz nuclear marker -->
+                <polygon points="510,175 518,175 514,167" fill="#e3b341" opacity="0.9"/>
+                <text x="490" y="177" font-family="var(--font-mono)" font-size="7" fill="#e3b341" text-anchor="end">FORDOW &#9888;</text>
+                <!-- Qom -->
+                <circle cx="510" cy="168" r="3" fill="#e3b341" fill-opacity="0.7"/>
+                <text x="498" y="165" font-family="var(--font-mono)" font-size="7" fill="#e3b341" opacity="0.8" text-anchor="end">QOM</text>
+              </g>
+
+              <!-- ---- ISRAEL (left side, blue) ---- -->
+              <g class="country-israel">
+                <polygon points="250,190 265,185 272,200 268,225 255,235 244,220 245,205" fill="#58a6ff" fill-opacity="0.18" stroke="#58a6ff" stroke-width="1.2"/>
+                <text x="258" y="215" text-anchor="middle" font-family="var(--font-mono)" font-size="11" font-weight="600" fill="#58a6ff">ISRAEL</text>
+                <!-- Tel Aviv -->
+                <circle cx="252" cy="208" r="4" fill="#58a6ff"/>
+                <text x="245" y="204" font-family="var(--font-mono)" font-size="8" fill="#adbac7" text-anchor="end">TEL AVIV</text>
+                <!-- Jerusalem -->
+                <circle cx="258" cy="218" r="3" fill="#58a6ff" fill-opacity="0.8"/>
+              </g>
+
+              <!-- ---- IRAQ ---- -->
+              <g class="country-iraq" opacity="0.5">
+                <polygon points="430,100 480,90 490,80 500,130 480,170 460,160 420,150 400,120 410,100" fill="none" stroke="var(--color-border)" stroke-width="1"/>
+                <text x="450" y="135" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--color-text-muted)">IRAQ</text>
+              </g>
+
+              <!-- ---- SAUDI ARABIA ---- -->
+              <g class="country-saudi" opacity="0.5">
+                <polygon points="290,270 400,260 420,290 440,340 420,380 360,400 300,380 270,340 260,300" fill="none" stroke="var(--color-border)" stroke-width="1"/>
+                <text x="350" y="330" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--color-text-muted)">SAUDI ARABIA</text>
+              </g>
+
+              <!-- ---- UAE / GULF ---- -->
+              <g class="country-uae" opacity="0.5">
+                <polygon points="560,290 600,280 620,300 610,320 580,325 555,310" fill="none" stroke="var(--color-border)" stroke-width="1"/>
+                <text x="582" y="308" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--color-text-muted)">UAE</text>
+              </g>
+
+              <!-- ---- JORDAN ---- -->
+              <g class="country-jordan" opacity="0.5">
+                <polygon points="280,195 310,185 340,200 335,250 290,260 268,240 270,215" fill="none" stroke="var(--color-border)" stroke-width="1"/>
+                <text x="305" y="225" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--color-text-muted)">JORDAN</text>
+              </g>
+
+              <!-- ---- TURKEY ---- -->
+              <g opacity="0.4">
+                <polygon points="340,30 500,25 530,55 520,70 440,75 390,65 340,60" fill="none" stroke="var(--color-border)" stroke-width="1"/>
+                <text x="430" y="55" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--color-text-faint)">TURKEY</text>
+              </g>
+
+              <!-- ---- PERSIAN GULF / HORMUZ ---- -->
+              <g class="hormuz">
+                <path d="M 530 270 Q 560 265 580 275 Q 610 280 620 300" fill="none" stroke="#e3b341" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="570" y="265" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="#e3b341">STRAIT OF</text>
+                <text x="570" y="276" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="#e3b341">HORMUZ</text>
+                <text x="570" y="287" text-anchor="middle" font-family="var(--font-mono)" font-size="7" fill="#e3b341" opacity="0.7">ELEVATED RISK</text>
+                <!-- Persian Gulf water -->
+                <path d="M 480 240 Q 520 230 550 255 Q 580 270 600 290 Q 580 300 560 295 Q 530 285 510 265 Q 490 255 475 250 Z" fill="#3182ce" fill-opacity="0.08" stroke="#3182ce" stroke-width="0.5" stroke-opacity="0.3"/>
+              </g>
+
+              <!-- ---- US CARRIER GROUPS ---- -->
+              <!-- USS Abraham Lincoln - Gulf of Oman -->
+              <g class="us-carrier">
+                <rect x="615" y="300" width="28" height="14" fill="var(--color-surface-2)" stroke="#58a6ff" stroke-width="1.2"/>
+                <text x="629" y="310" text-anchor="middle" font-family="var(--font-mono)" font-size="7" fill="#58a6ff" font-weight="600">CVN-72</text>
+                <text x="629" y="325" text-anchor="middle" font-family="var(--font-mono)" font-size="7" fill="var(--color-text-faint)">LINCOLN</text>
+                <!-- US flag marker -->
+                <text x="615" y="297" font-family="var(--font-mono)" font-size="7" fill="#58a6ff">&#9776; USA</text>
+              </g>
+              <!-- USS Gerald R. Ford - Med -->
+              <g class="us-carrier">
+                <rect x="140" y="140" width="28" height="14" fill="var(--color-surface-2)" stroke="#58a6ff" stroke-width="1.2"/>
+                <text x="154" y="150" text-anchor="middle" font-family="var(--font-mono)" font-size="7" fill="#58a6ff" font-weight="600">CVN-78</text>
+                <text x="154" y="165" text-anchor="middle" font-family="var(--font-mono)" font-size="7" fill="var(--color-text-faint)">FORD</text>
+                <text x="140" y="137" font-family="var(--font-mono)" font-size="7" fill="#58a6ff">&#9776; USA</text>
+              </g>
+
+              <!-- US Bases -->
+              <!-- Bahrain 5th Fleet -->
+              <g class="us-base">
+                <rect x="538" y="280" width="6" height="6" fill="#58a6ff" fill-opacity="0.8"/>
+                <text x="546" y="287" font-family="var(--font-mono)" font-size="8" fill="#58a6ff">BAHRAIN 5TH FLT</text>
+              </g>
+              <!-- Qatar Al Udeid -->
+              <g class="us-base">
+                <rect x="562" y="310" width="6" height="6" fill="#58a6ff" fill-opacity="0.8"/>
+                <text x="570" y="317" font-family="var(--font-mono)" font-size="8" fill="#58a6ff">AL UDEID, QA</text>
+              </g>
+              <!-- Kuwait -->
+              <g class="us-base">
+                <rect x="504" y="250" width="6" height="6" fill="#58a6ff" fill-opacity="0.7"/>
+                <text x="512" y="257" font-family="var(--font-mono)" font-size="8" fill="#58a6ff">KUWAIT</text>
+              </g>
+
+              <!-- ====== STRIKE ARROWS: Israel -> Iran ====== -->
+              <!-- IAF strike path -->
+              <g class="strike-arrows">
+                <defs>
+                  <marker id="arrow-idf" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                    <polygon points="0 0, 8 3, 0 6" fill="#58a6ff"/>
+                  </marker>
+                  <marker id="arrow-iran" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                    <polygon points="0 0, 8 3, 0 6" fill="#f85149"/>
+                  </marker>
+                  <marker id="arrow-us" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                    <polygon points="0 0, 8 3, 0 6" fill="#58a6ff"/>
+                  </marker>
+                </defs>
+                <!-- Israel strike to Iran (curved) -->
+                <path d="M 268 210 Q 360 130 490 155" stroke="#58a6ff" stroke-width="1.5" fill="none" stroke-dasharray="6,4" marker-end="url(#arrow-idf)" opacity="0.8"/>
+                <text x="370" y="148" font-family="var(--font-mono)" font-size="9" fill="#58a6ff" opacity="0.8" text-anchor="middle">IAF STRIKE</text>
+
+                <!-- Iran retaliation -> Israel (ballistic arc) -->
+                <path d="M 510 155 Q 400 90 268 205" stroke="#f85149" stroke-width="1.5" fill="none" stroke-dasharray="3,3" marker-end="url(#arrow-iran)" opacity="0.9"/>
+                <text x="380" y="100" font-family="var(--font-mono)" font-size="9" fill="#f85149" opacity="0.9" text-anchor="middle">BALLISTIC RETALIATION</text>
+
+                <!-- US carrier strike from Gulf -->
+                <path d="M 629 307 Q 600 270 560 235 Q 540 215 535 190" stroke="#58a6ff" stroke-width="1.5" fill="none" stroke-dasharray="6,4" marker-end="url(#arrow-us)" opacity="0.7"/>
+                <text x="590" y="252" font-family="var(--font-mono)" font-size="8" fill="#58a6ff" opacity="0.7" text-anchor="end">USN STRIKE</text>
+
+                <!-- US carrier from Med strike -->
+                <path d="M 154 147 Q 200 120 260 120 Q 380 100 470 130" stroke="#58a6ff" stroke-width="1.5" fill="none" stroke-dasharray="6,4" marker-end="url(#arrow-us)" opacity="0.7"/>
+              </g>
+
+              <!-- ====== HOUTHI / Red Sea threat ====== -->
+              <g class="houthi">
+                <text x="220" y="340" font-family="var(--font-mono)" font-size="9" fill="#e3b341" opacity="0.8">HOUTHI</text>
+                <text x="220" y="352" font-family="var(--font-mono)" font-size="8" fill="#e3b341" opacity="0.7">RED SEA</text>
+                <text x="220" y="363" font-family="var(--font-mono)" font-size="7" fill="#e3b341" opacity="0.6">ATTACKS RESUMED</text>
+                <path d="M 230 330 Q 240 300 252 280" stroke="#e3b341" stroke-width="1" fill="none" stroke-dasharray="3,3" opacity="0.6"/>
+              </g>
+
+              <!-- ====== MEDITERRANEAN SEA label ====== -->
+              <text x="150" y="200" font-family="var(--font-mono)" font-size="10" fill="var(--color-text-faint)" opacity="0.5" text-anchor="middle">MEDITERRANEAN</text>
+
+              <!-- LEGEND -->
+              <g class="map-legend" transform="translate(30, 390)">
+                <rect x="0" y="0" width="180" height="80" fill="var(--color-surface)" fill-opacity="0.9" stroke="var(--color-border)" stroke-width="1"/>
+                <text x="8" y="14" font-family="var(--font-mono)" font-size="8" fill="var(--color-text-faint)" font-weight="600" letter-spacing="1">LEGEND</text>
+                <!-- IDF strike -->
+                <line x1="8" y1="26" x2="30" y2="26" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="6,4"/>
+                <polygon points="28,23 34,26 28,29" fill="#58a6ff"/>
+                <text x="40" y="29" font-family="var(--font-mono)" font-size="8" fill="#58a6ff">ALLIED STRIKES</text>
+                <!-- Iran retaliation -->
+                <line x1="8" y1="42" x2="30" y2="42" stroke="#f85149" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <polygon points="28,39 34,42 28,45" fill="#f85149"/>
+                <text x="40" y="45" font-family="var(--font-mono)" font-size="8" fill="#f85149">IRAN RETALIATION</text>
+                <!-- US base -->
+                <rect x="8" y="53" width="8" height="8" fill="#58a6ff" fill-opacity="0.8"/>
+                <text x="22" y="61" font-family="var(--font-mono)" font-size="8" fill="#58a6ff">US BASE/CARRIER</text>
+                <!-- Nuclear warning -->
+                <polygon points="8,73 16,73 12,65" fill="#e3b341" opacity="0.9"/>
+                <text x="22" y="74" font-family="var(--font-mono)" font-size="8" fill="#e3b341">NUCLEAR SITE</text>
+              </g>
+
+            </svg>
+          </div>
+        </section>
+      </main>
+
+      <!-- =============================================
+           RIGHT SIDEBAR
+      ============================================= -->
+      <aside class="sidebar-column" id="sidebar" aria-label="Intelligence sources and analysis">
+
+        <!-- INTELLIGENCE SOURCES -->
+        <div class="sidebar-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">INTELLIGENCE SOURCES</h2>
+            <span class="panel-meta">MONITORED FEEDS</span>
+          </div>
+
+          <div class="source-group">
+            <div class="source-group-label">X (TWITTER) — OSINT</div>
+            <ul class="source-list" role="list">
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <a href="https://x.com/Osinttechnical" target="_blank" rel="noopener noreferrer" class="source-link">@Osinttechnical</a>
+                <span class="source-desc">OSINT Technical</span>
+              </li>
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <a href="https://x.com/Osint613" target="_blank" rel="noopener noreferrer" class="source-link">@Osint613</a>
+                <span class="source-desc">Open Source Intel</span>
+              </li>
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <a href="https://x.com/IntelCrab" target="_blank" rel="noopener noreferrer" class="source-link">@IntelCrab</a>
+                <span class="source-desc">Intel Crab</span>
+              </li>
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <a href="https://x.com/sentdefender" target="_blank" rel="noopener noreferrer" class="source-link">@sentdefender</a>
+                <span class="source-desc">Sentdefender</span>
+              </li>
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <a href="https://x.com/DeptofWar" target="_blank" rel="noopener noreferrer" class="source-link">@DeptofWar</a>
+                <span class="source-desc">US Dept of Defense</span>
+              </li>
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <a href="https://x.com/IDF" target="_blank" rel="noopener noreferrer" class="source-link">@IDF</a>
+                <span class="source-desc">Israel Defense Forces</span>
+              </li>
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <a href="https://x.com/Jerusalem_Post" target="_blank" rel="noopener noreferrer" class="source-link">@Jerusalem_Post</a>
+                <span class="source-desc">Jerusalem Post</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="source-group">
+            <div class="source-group-label">TELEGRAM CHANNELS</div>
+            <ul class="source-list" role="list">
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <span class="source-link-plain">Mossad Farsi Channel</span>
+                <span class="source-desc">New — Iranian audience</span>
+              </li>
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <span class="source-link-plain">Iran International</span>
+                <span class="source-desc">Persian media</span>
+              </li>
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <span class="source-link-plain">IRGC Official</span>
+                <span class="source-desc">Regime statements</span>
+              </li>
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <span class="source-link-plain">Middle East Spectator</span>
+                <span class="source-desc">Regional aggregation</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="source-group">
+            <div class="source-group-label">MEDIA — LIVE COVERAGE</div>
+            <ul class="source-list" role="list">
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <a href="https://www.reuters.com" target="_blank" rel="noopener noreferrer" class="source-link">Reuters</a>
+                <span class="source-desc">Wire service</span>
+              </li>
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <a href="https://www.aljazeera.com/news/liveblog/2026/2/28/live-israel-launches-attacks-on-iran-multiple-explosions-heard-in-tehran" target="_blank" rel="noopener noreferrer" class="source-link">Al Jazeera Live</a>
+                <span class="source-desc">Live blog</span>
+              </li>
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <a href="https://www.cnn.com/world/live-news/israel-iran-attack-02-28-26-hnk-intl" target="_blank" rel="noopener noreferrer" class="source-link">CNN Live Updates</a>
+                <span class="source-desc">Live blog</span>
+              </li>
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <a href="https://apnews.com/live/live-updates-israel-iran-february-28-2026" target="_blank" rel="noopener noreferrer" class="source-link">AP News Live</a>
+                <span class="source-desc">Live updates</span>
+              </li>
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <span class="source-link-plain">BBC News</span>
+                <span class="source-desc">UK public broadcasting</span>
+              </li>
+              <li class="source-item">
+                <span class="source-status online" aria-label="Active"></span>
+                <span class="source-link-plain">Times of Israel</span>
+                <span class="source-desc">Israeli English media</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STRATEGIC ANALYSIS -->
+        <div class="sidebar-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">STRATEGIC ANALYSIS</h2>
+            <span class="panel-meta">BRIEFING NOTE</span>
+          </div>
+
+          <!-- Military -->
+          <div class="analysis-section">
+            <div class="analysis-label">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><polygon points="5,1 9,9 1,9" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+              MILITARY ASSESSMENT
+            </div>
+            <ul class="analysis-list" role="list">
+              <li>USS Abraham Lincoln and USS Gerald R. Ford carrier groups deployed</li>
+              <li>Strikes coordinated — air and naval assets targeting military, nuclear, and leadership sites</li>
+              <li>Iran responding with ballistic missiles to Israel and US bases in Gulf (Bahrain, Qatar, Kuwait, UAE, Saudi Arabia, Jordan)</li>
+              <li>Houthis announce resumption of Red Sea attacks</li>
+            </ul>
+          </div>
+
+          <!-- Diplomatic -->
+          <div class="analysis-section">
+            <div class="analysis-label">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><polygon points="5,1 9,9 1,9" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+              DIPLOMATIC STATUS
+            </div>
+            <ul class="analysis-list" role="list">
+              <li>Geneva nuclear talks failed 27 Feb — no deal reached</li>
+              <li>Russia condemns strikes, calls bombing of IAEA-safeguarded facilities "unacceptable"</li>
+              <li>Oman mediation efforts collapsed</li>
+              <li>Iran insists on right to enrich uranium, rejects missile program limitations</li>
+            </ul>
+          </div>
+
+          <!-- Economic -->
+          <div class="analysis-section">
+            <div class="analysis-label">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><polygon points="5,1 9,9 1,9" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+              ECONOMIC IMPACT
+            </div>
+            <div class="price-row">
+              <div class="price-item">
+                <span class="price-label">BRENT</span>
+                <span class="price-value warning tabnum">$72.87</span>
+                <span class="price-delta up">&#9650; +3.4%</span>
+              </div>
+              <div class="price-item">
+                <span class="price-label">WTI</span>
+                <span class="price-value warning tabnum">$67.29</span>
+                <span class="price-delta up">&#9650; +3.19%</span>
+              </div>
+            </div>
+            <ul class="analysis-list" role="list">
+              <li>Analysts project potential spike to $80/bbl</li>
+              <li>Strait of Hormuz: 13M barrels/day transit at risk</li>
+              <li>Major shipping firms halting Hormuz transits</li>
+              <li>Insurance rates expected to spike dramatically</li>
+              <li>Greece advises vessels to avoid Arabian Gulf entirely</li>
+            </ul>
+          </div>
+
+          <!-- Key Figures -->
+          <div class="analysis-section">
+            <div class="analysis-label">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><polygon points="5,1 9,9 1,9" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+              KEY FIGURES
+            </div>
+            <div class="figures-grid">
+              <div class="figure-group">
+                <div class="figure-country critical">IRAN</div>
+                <div class="figure-name">Khamenei<span class="figure-note">status unknown — evacuated</span></div>
+                <div class="figure-name">Shamkhani<span class="figure-note critical">reported killed</span></div>
+              </div>
+              <div class="figure-group">
+                <div class="figure-country israel">ISRAEL</div>
+                <div class="figure-name">PM Netanyahu</div>
+                <div class="figure-name">Def. Min. Katz</div>
+              </div>
+              <div class="figure-group">
+                <div class="figure-country usa">USA</div>
+                <div class="figure-name">Pres. Trump</div>
+                <div class="figure-name">SecState Rubio</div>
+                <div class="figure-name">Envoy Witkoff</div>
+                <div class="figure-name">Jared Kushner</div>
+              </div>
+              <div class="figure-group">
+                <div class="figure-country" style="color: var(--color-text-muted);">EXILE</div>
+                <div class="figure-name">Reza Pahlavi<span class="figure-note">called on Iranians to "take back Iran"</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       FOOTER
+  ================================================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-disclaimer">
+        <strong>MERIDIAN INTEL</strong> is an open-source intelligence aggregation platform. Information is compiled from publicly available sources and may contain unverified reports. Always cross-reference with official sources. This platform does not represent the views of any government, military, or intelligence agency.
+      </div>
+      <div class="footer-sources">
+        Sources: Reuters, AP, Al Jazeera, CNN, BBC, IDF Spokesperson, Pentagon, X/Twitter OSINT community, Telegram channels
+      </div>
+      <div class="footer-meta">
+        <span>Last updated: <span id="footer-timestamp">28 FEB 2026 / 17:30 IST</span></span>
+        <span class="footer-sep">|</span>
+        <a href="https://www.reuters.com" target="_blank" rel="noopener noreferrer" class="footer-link">Reuters</a>
+        <a href="https://www.aljazeera.com/news/liveblog/2026/2/28/live-israel-launches-attacks-on-iran-multiple-explosions-heard-in-tehran" target="_blank" rel="noopener noreferrer" class="footer-link">Al Jazeera Live</a>
+        <a href="https://apnews.com/live/live-updates-israel-iran-february-28-2026" target="_blank" rel="noopener noreferrer" class="footer-link">AP News</a>
+        <a href="https://www.cnn.com/world/live-news/israel-iran-attack-02-28-26-hnk-intl" target="_blank" rel="noopener noreferrer" class="footer-link">CNN Live</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
