@@ -1,16 +1,11 @@
 /* style.css — MERIDIAN INTEL Design Tokens */
 
-/* =============================================
-   TYPOGRAPHY — IBM Plex Sans + IBM Plex Mono
-   ============================================= */
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 :root {
   --font-body: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
   --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
   --font-display: 'IBM Plex Mono', 'Courier New', monospace;
-
-  /* --- Fluid Type Scale --- */
   --text-xs:   clamp(0.65rem,  0.6rem  + 0.2vw,  0.75rem);
   --text-sm:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
   --text-base: clamp(0.875rem, 0.82rem + 0.275vw, 1rem);
@@ -18,248 +13,62 @@
   --text-xl:   clamp(1.25rem,  1rem    + 1vw,    1.75rem);
   --text-2xl:  clamp(1.5rem,   1.1rem  + 1.5vw,  2.5rem);
   --text-3xl:  clamp(2rem,     1rem    + 3vw,    3.5rem);
-
-  /* --- 4px Spacing System --- */
-  --space-1:  0.25rem;
-  --space-2:  0.5rem;
-  --space-3:  0.75rem;
-  --space-4:  1rem;
-  --space-5:  1.25rem;
-  --space-6:  1.5rem;
-  --space-8:  2rem;
-  --space-10: 2.5rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-20: 5rem;
-  --space-24: 6rem;
-
-  /* --- Border Radius — Sharp, intelligence aesthetic --- */
-  --radius-none: 0;
-  --radius-sm: 2px;
-  --radius-md: 3px;
-
-  /* --- Transitions --- */
+  --text-2xs:  clamp(0.55rem,  0.5rem  + 0.15vw, 0.65rem);
+  --space-1:  0.25rem; --space-2:  0.5rem; --space-3:  0.75rem; --space-4:  1rem;
+  --space-5:  1.25rem; --space-6:  1.5rem; --space-8:  2rem; --space-10: 2.5rem;
+  --space-12: 3rem; --space-16: 4rem; --space-20: 5rem; --space-24: 6rem;
+  --radius-none: 0; --radius-sm: 2px; --radius-md: 3px;
   --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
-
-  /* --- Content widths --- */
-  --content-narrow: 640px;
-  --content-default: 960px;
-  --content-wide: 1400px;
+  --content-narrow: 640px; --content-default: 960px; --content-wide: 1400px;
 }
 
-/* =============================================
-   LIGHT MODE — MERIDIAN INTEL CUSTOM PALETTE
-   Light: crisp white with intelligence feel
-   ============================================= */
 :root, [data-theme="light"] {
-  /* --- Surfaces --- */
-  --color-bg:              #f5f5f0;
-  --color-surface:         #fafaf8;
-  --color-surface-2:       #ffffff;
-  --color-surface-offset:  #ebebeb;
-  --color-surface-offset-2: #e0e0da;
-  --color-surface-dynamic: #d8d8d2;
-  --color-divider:         #d0d0c8;
-  --color-border:          #c4c4bc;
-
-  /* --- Text --- */
-  --color-text:            #111111;
-  --color-text-muted:      #555550;
-  --color-text-faint:      #999994;
-  --color-text-inverse:    #f5f5f0;
-
-  /* --- Accent: Critical Red (Iran/CRITICAL) --- */
-  --color-critical:        #e53e3e;
-  --color-critical-dim:    #c53030;
-  --color-critical-bg:     rgba(229, 62, 62, 0.1);
-  --color-critical-border: rgba(229, 62, 62, 0.35);
-
-  /* --- Accent: Blue (USA) --- */
-  --color-usa:             #3182ce;
-  --color-usa-dim:         #2c5282;
-  --color-usa-bg:          rgba(49, 130, 206, 0.1);
-  --color-usa-border:      rgba(49, 130, 206, 0.35);
-
-  /* --- Accent: White/Light (Israel) --- */
-  --color-israel:          #718096;
-  --color-israel-dim:      #4a5568;
-  --color-israel-bg:       rgba(113, 128, 150, 0.1);
-  --color-israel-border:   rgba(113, 128, 150, 0.35);
-
-  /* --- Accent: Amber/Gold (Warnings) --- */
-  --color-warning:         #d69e2e;
-  --color-warning-dim:     #b7791f;
-  --color-warning-bg:      rgba(214, 158, 46, 0.1);
-  --color-warning-border:  rgba(214, 158, 46, 0.35);
-
-  /* --- Accent: Green (Stable) --- */
-  --color-stable:          #38a169;
-  --color-stable-dim:      #276749;
-  --color-stable-bg:       rgba(56, 161, 105, 0.1);
-  --color-stable-border:   rgba(56, 161, 105, 0.35);
-
-  /* --- Semantic aliases --- */
-  --color-primary:         #3182ce;
-  --color-error:           #e53e3e;
-  --color-success:         #38a169;
-  --color-gold:            #d69e2e;
-
-  /* --- Shadows --- */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-lg: 0 12px 32px rgba(0,0,0,0.12);
+  --color-bg: #f5f5f0; --color-surface: #fafaf8; --color-surface-2: #ffffff;
+  --color-surface-offset: #ebebeb; --color-surface-offset-2: #e0e0da;
+  --color-surface-dynamic: #d8d8d2; --color-divider: #d0d0c8; --color-border: #c4c4bc;
+  --color-text: #111111; --color-text-muted: #555550; --color-text-faint: #999994; --color-text-inverse: #f5f5f0;
+  --color-critical: #e53e3e; --color-critical-dim: #c53030; --color-critical-bg: rgba(229, 62, 62, 0.1); --color-critical-border: rgba(229, 62, 62, 0.35);
+  --color-usa: #3182ce; --color-usa-dim: #2c5282; --color-usa-bg: rgba(49, 130, 206, 0.1); --color-usa-border: rgba(49, 130, 206, 0.35);
+  --color-israel: #718096; --color-israel-dim: #4a5568; --color-israel-bg: rgba(113, 128, 150, 0.1); --color-israel-border: rgba(113, 128, 150, 0.35);
+  --color-warning: #d69e2e; --color-warning-dim: #b7791f; --color-warning-bg: rgba(214, 158, 46, 0.1); --color-warning-border: rgba(214, 158, 46, 0.35);
+  --color-stable: #38a169; --color-stable-dim: #276749; --color-stable-bg: rgba(56, 161, 105, 0.1); --color-stable-border: rgba(56, 161, 105, 0.35);
+  --color-primary: #3182ce; --color-error: #e53e3e; --color-success: #38a169; --color-gold: #d69e2e;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06); --shadow-md: 0 4px 12px rgba(0,0,0,0.08); --shadow-lg: 0 12px 32px rgba(0,0,0,0.12);
 }
 
-/* =============================================
-   DARK MODE — PRIMARY — MERIDIAN INTEL CUSTOM
-   Deep charcoal, classified briefing aesthetic
-   ============================================= */
 [data-theme="dark"],
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    /* --- Surfaces (deep charcoal) --- */
-    --color-bg:              #0d1117;
-    --color-surface:         #161b22;
-    --color-surface-2:       #21262d;
-    --color-surface-offset:  #1a2130;
-    --color-surface-offset-2: #252d3a;
-    --color-surface-dynamic: #2d3748;
-    --color-divider:         #30363d;
-    --color-border:          #3d444d;
-
-    /* --- Text --- */
-    --color-text:            #e2e8f0;
-    --color-text-muted:      #8b949e;
-    --color-text-faint:      #484f58;
-    --color-text-inverse:    #0d1117;
-
-    /* --- Accent: Critical Red --- */
-    --color-critical:        #f85149;
-    --color-critical-dim:    #da3633;
-    --color-critical-bg:     rgba(248, 81, 73, 0.12);
-    --color-critical-border: rgba(248, 81, 73, 0.3);
-
-    /* --- Accent: Blue (USA) --- */
-    --color-usa:             #58a6ff;
-    --color-usa-dim:         #388bfd;
-    --color-usa-bg:          rgba(88, 166, 255, 0.1);
-    --color-usa-border:      rgba(88, 166, 255, 0.3);
-
-    /* --- Accent: White/Light (Israel) --- */
-    --color-israel:          #adbac7;
-    --color-israel-dim:      #768390;
-    --color-israel-bg:       rgba(173, 186, 199, 0.1);
-    --color-israel-border:   rgba(173, 186, 199, 0.3);
-
-    /* --- Accent: Amber/Gold (Warnings) --- */
-    --color-warning:         #e3b341;
-    --color-warning-dim:     #d29922;
-    --color-warning-bg:      rgba(227, 179, 65, 0.1);
-    --color-warning-border:  rgba(227, 179, 65, 0.3);
-
-    /* --- Accent: Green (Stable) --- */
-    --color-stable:          #3fb950;
-    --color-stable-dim:      #2ea043;
-    --color-stable-bg:       rgba(63, 185, 80, 0.1);
-    --color-stable-border:   rgba(63, 185, 80, 0.3);
-
-    /* --- Semantic aliases --- */
-    --color-primary:         #58a6ff;
-    --color-error:           #f85149;
-    --color-success:         #3fb950;
-    --color-gold:            #e3b341;
-
-    /* --- Shadows --- */
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
-    --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+    --color-bg: #0d1117; --color-surface: #161b22; --color-surface-2: #21262d;
+    --color-surface-offset: #1a2130; --color-surface-offset-2: #252d3a;
+    --color-surface-dynamic: #2d3748; --color-divider: #30363d; --color-border: #3d444d;
+    --color-text: #e2e8f0; --color-text-muted: #8b949e; --color-text-faint: #484f58; --color-text-inverse: #0d1117;
+    --color-critical: #f85149; --color-critical-dim: #da3633; --color-critical-bg: rgba(248, 81, 73, 0.12); --color-critical-border: rgba(248, 81, 73, 0.3);
+    --color-usa: #58a6ff; --color-usa-dim: #388bfd; --color-usa-bg: rgba(88, 166, 255, 0.1); --color-usa-border: rgba(88, 166, 255, 0.3);
+    --color-israel: #adbac7; --color-israel-dim: #768390; --color-israel-bg: rgba(173, 186, 199, 0.1); --color-israel-border: rgba(173, 186, 199, 0.3);
+    --color-warning: #e3b341; --color-warning-dim: #d29922; --color-warning-bg: rgba(227, 179, 65, 0.1); --color-warning-border: rgba(227, 179, 65, 0.3);
+    --color-stable: #3fb950; --color-stable-dim: #2ea043; --color-stable-bg: rgba(63, 185, 80, 0.1); --color-stable-border: rgba(63, 185, 80, 0.3);
+    --color-primary: #58a6ff; --color-error: #f85149; --color-success: #3fb950; --color-gold: #e3b341;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4); --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
   }
 }
 
 [data-theme="dark"] {
-  /* --- Surfaces (deep charcoal) --- */
-  --color-bg:              #0d1117;
-  --color-surface:         #161b22;
-  --color-surface-2:       #21262d;
-  --color-surface-offset:  #1a2130;
-  --color-surface-offset-2: #252d3a;
-  --color-surface-dynamic: #2d3748;
-  --color-divider:         #30363d;
-  --color-border:          #3d444d;
-
-  /* --- Text --- */
-  --color-text:            #e2e8f0;
-  --color-text-muted:      #8b949e;
-  --color-text-faint:      #484f58;
-  --color-text-inverse:    #0d1117;
-
-  /* --- Accent: Critical Red --- */
-  --color-critical:        #f85149;
-  --color-critical-dim:    #da3633;
-  --color-critical-bg:     rgba(248, 81, 73, 0.12);
-  --color-critical-border: rgba(248, 81, 73, 0.3);
-
-  /* --- Accent: Blue (USA) --- */
-  --color-usa:             #58a6ff;
-  --color-usa-dim:         #388bfd;
-  --color-usa-bg:          rgba(88, 166, 255, 0.1);
-  --color-usa-border:      rgba(88, 166, 255, 0.3);
-
-  /* --- Accent: White/Light (Israel) --- */
-  --color-israel:          #adbac7;
-  --color-israel-dim:      #768390;
-  --color-israel-bg:       rgba(173, 186, 199, 0.1);
-  --color-israel-border:   rgba(173, 186, 199, 0.3);
-
-  /* --- Accent: Amber/Gold (Warnings) --- */
-  --color-warning:         #e3b341;
-  --color-warning-dim:     #d29922;
-  --color-warning-bg:      rgba(227, 179, 65, 0.1);
-  --color-warning-border:  rgba(227, 179, 65, 0.3);
-
-  /* --- Accent: Green (Stable) --- */
-  --color-stable:          #3fb950;
-  --color-stable-dim:      #2ea043;
-  --color-stable-bg:       rgba(63, 185, 80, 0.1);
-  --color-stable-border:   rgba(63, 185, 80, 0.3);
-
-  /* --- Semantic aliases --- */
-  --color-primary:         #58a6ff;
-  --color-error:           #f85149;
-  --color-success:         #3fb950;
-  --color-gold:            #e3b341;
-
-  /* --- Shadows --- */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
-  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+  --color-bg: #0d1117; --color-surface: #161b22; --color-surface-2: #21262d;
+  --color-surface-offset: #1a2130; --color-surface-offset-2: #252d3a;
+  --color-surface-dynamic: #2d3748; --color-divider: #30363d; --color-border: #3d444d;
+  --color-text: #e2e8f0; --color-text-muted: #8b949e; --color-text-faint: #484f58; --color-text-inverse: #0d1117;
+  --color-critical: #f85149; --color-critical-dim: #da3633; --color-critical-bg: rgba(248, 81, 73, 0.12); --color-critical-border: rgba(248, 81, 73, 0.3);
+  --color-usa: #58a6ff; --color-usa-dim: #388bfd; --color-usa-bg: rgba(88, 166, 255, 0.1); --color-usa-border: rgba(88, 166, 255, 0.3);
+  --color-israel: #adbac7; --color-israel-dim: #768390; --color-israel-bg: rgba(173, 186, 199, 0.1); --color-israel-border: rgba(173, 186, 199, 0.3);
+  --color-warning: #e3b341; --color-warning-dim: #d29922; --color-warning-bg: rgba(227, 179, 65, 0.1); --color-warning-border: rgba(227, 179, 65, 0.3);
+  --color-stable: #3fb950; --color-stable-dim: #2ea043; --color-stable-bg: rgba(63, 185, 80, 0.1); --color-stable-border: rgba(63, 185, 80, 0.3);
+  --color-primary: #58a6ff; --color-error: #f85149; --color-success: #3fb950; --color-gold: #e3b341;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-md: 0 4px 12px rgba(0,0,0,0.4); --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
 }
 
-/* =============================================
-   PULSE ANIMATIONS
-   ============================================= */
-@keyframes pulse-critical {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(248, 81, 73, 0.5); }
-  50%       { opacity: 0.85; box-shadow: 0 0 0 5px rgba(248, 81, 73, 0); }
-}
-
-@keyframes pulse-warning {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(227, 179, 65, 0.5); }
-  50%       { opacity: 0.85; box-shadow: 0 0 0 5px rgba(227, 179, 65, 0); }
-}
-
-@keyframes blink-cursor {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
-
-@keyframes scan-line {
-  0%   { transform: translateY(-100%); opacity: 0; }
-  50%  { opacity: 0.03; }
-  100% { transform: translateY(100vh); opacity: 0; }
-}
-
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+@keyframes pulse-critical { 0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(248, 81, 73, 0.5); } 50% { opacity: 0.85; box-shadow: 0 0 0 5px rgba(248, 81, 73, 0); } }
+@keyframes pulse-warning { 0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(227, 179, 65, 0.5); } 50% { opacity: 0.85; box-shadow: 0 0 0 5px rgba(227, 179, 65, 0); } }
+@keyframes blink-cursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes scan-line { 0% { transform: translateY(-100%); opacity: 0; } 50% { opacity: 0.03; } 100% { transform: translateY(100vh); opacity: 0; } }
+@keyframes fade-in-up { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
