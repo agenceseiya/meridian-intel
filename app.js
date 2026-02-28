@@ -5,9 +5,15 @@
 
   const CGI_BIN = '__CGI_BIN__';
 
+  // ============================================================
+  // SESSION ID (persistent per tab)
+  // ============================================================
   const SESSION_ID = 'mi_' + Math.random().toString(36).substring(2, 15) +
                      Date.now().toString(36);
 
+  // ============================================================
+  // THEME TOGGLE
+  // ============================================================
   const root = document.documentElement;
   const toggle = document.querySelector('[data-theme-toggle]');
   const iconMoon = toggle ? toggle.querySelector('.icon-moon') : null;
@@ -37,12 +43,18 @@
   }
   updateThemeIcon();
 
+  // ============================================================
+  // LIVE CLOCK (IST = UTC+5:30)
+  // ============================================================
   const clockEl = document.getElementById('live-clock');
   const dateEl  = document.getElementById('live-date');
   const bannerTS = document.getElementById('banner-timestamp');
   const footerTS = document.getElementById('footer-timestamp');
 
-  const MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  const MONTHS = [
+    'JAN','FEB','MAR','APR','MAY','JUN',
+    'JUL','AUG','SEP','OCT','NOV','DEC'
+  ];
 
   function pad(n) { return String(n).padStart(2, '0'); }
 
@@ -53,18 +65,28 @@
     return new Date(istMs);
   }
 
-  function formatTime(d) { return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds()); }
-  function formatDate(d) { return pad(d.getDate()) + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear(); }
-  function formatDateTime(d) { return formatDate(d) + ' / ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ' IST'; }
+  function formatTime(d) {
+    return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+  function formatDate(d) {
+    return pad(d.getDate()) + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+  }
+  function formatDateTime(d) {
+    return formatDate(d) + ' / ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ' IST';
+  }
 
   function tickClock() {
     const ist = getIST();
     if (clockEl) clockEl.textContent = formatTime(ist);
     if (dateEl)  dateEl.textContent  = formatDate(ist);
+    // Banner and footer timestamps are now updated by the feed system
   }
   tickClock();
   setInterval(tickClock, 1000);
 
+  // ============================================================
+  // MAP THEME ADAPTATION
+  // ============================================================
   function updateMapTheme() {
     const svgMap = document.querySelector('.region-map');
     if (!svgMap) return;
@@ -73,6 +95,9 @@
     bgRect.setAttribute('fill', theme === 'dark' ? '#0d1117' : '#f5f5f0');
   }
 
+  // ============================================================
+  // MOBILE SIDEBAR TOGGLE
+  // ============================================================
   const mobileMenuBtn = document.getElementById('mobile-menu-toggle');
   const sidebar = document.getElementById('sidebar');
 
@@ -83,6 +108,9 @@
     });
   }
 
+  // ============================================================
+  // REAL-TIME FEED SYSTEM
+  // ============================================================
   const timelineList = document.querySelector('.timeline-list');
   const eventCountEl = document.getElementById('event-count');
   const feedStatusEl = document.getElementById('feed-status');
@@ -95,10 +123,25 @@
   let isFirstLoad = true;
   let fetchInFlight = false;
 
-  const PRIORITY_CLASS = { 'flash': 'flash', 'urgent': 'urgent', 'routine': 'routine' };
+  // Priority class mapping
+  const PRIORITY_CLASS = {
+    'flash': 'flash',
+    'urgent': 'urgent',
+    'routine': 'routine'
+  };
+
+  // Source class mapping
   const SOURCE_CLASS_MAP = {
-    'REUTERS': 'media', 'BBC': 'media', 'ALJAZEERA': 'media', 'AP': 'media', 'TOI': 'media',
-    'IDF': 'idf', 'IRGC': 'irgc', 'POTUS': 'potus', 'OSINT': 'osint', 'MEDIA': 'media'
+    'REUTERS': 'media',
+    'BBC': 'media',
+    'ALJAZEERA': 'media',
+    'AP': 'media',
+    'TOI': 'media',
+    'IDF': 'idf',
+    'IRGC': 'irgc',
+    'POTUS': 'potus',
+    'OSINT': 'osint',
+    'MEDIA': 'media'
   };
 
   function decodeHtmlEntities(text) {
@@ -114,6 +157,8 @@
   }
 
   function safeContent(text) {
+    // First decode any HTML entities from the source, then re-escape for safe insertion
+    // This prevents double-encoding (e.g. &#039; appearing literally)
     return escapeHtml(decodeHtmlEntities(text || ''));
   }
 
@@ -122,31 +167,56 @@
     const priorityClass = PRIORITY_CLASS[entry.priority] || 'routine';
     const sourceClass = SOURCE_CLASS_MAP[entry.source_tag] || entry.source_class || 'media';
     li.className = 'timeline-entry ' + priorityClass;
-    if (isNew && !isFirstLoad) li.classList.add('entry-new');
+
+    if (isNew && !isFirstLoad) {
+      li.classList.add('entry-new');
+    }
+
     li.innerHTML =
       '<div class="entry-meta">' +
-        '<time class="entry-time" datetime="' + escapeHtml(entry.time || '') + '">' + escapeHtml(entry.time_display || '') + '</time>' +
+        '<time class="entry-time" datetime="' + escapeHtml(entry.time || '') + '">' +
+          escapeHtml(entry.time_display || '') +
+        '</time>' +
         '<span class="entry-tag ' + priorityClass + '">' + escapeHtml(entry.priority || 'ROUTINE').toUpperCase() + '</span>' +
         '<span class="entry-source ' + sourceClass + '">' + escapeHtml(entry.source_tag || 'NEWS') + '</span>' +
       '</div>' +
-      '<div class="entry-content">' + safeContent(entry.content || entry.title || '') + '</div>';
+      '<div class="entry-content">' +
+        safeContent(entry.content || entry.title || '') +
+      '</div>';
+
     return li;
   }
 
   function updateFeedStatus(status, sourcesStatus) {
     if (feedStatusEl) {
-      if (status === 'loading') { feedStatusEl.textContent = 'FETCHING'; feedStatusEl.className = 'feed-status-value loading'; }
-      else if (status === 'ok') { feedStatusEl.textContent = 'LIVE'; feedStatusEl.className = 'feed-status-value live'; }
-      else { feedStatusEl.textContent = 'ERROR'; feedStatusEl.className = 'feed-status-value error'; }
+      if (status === 'loading') {
+        feedStatusEl.textContent = 'FETCHING';
+        feedStatusEl.className = 'feed-status-value loading';
+      } else if (status === 'ok') {
+        feedStatusEl.textContent = 'LIVE';
+        feedStatusEl.className = 'feed-status-value live';
+      } else if (status === 'partial') {
+        feedStatusEl.textContent = 'LIVE';
+        feedStatusEl.className = 'feed-status-value live';
+      } else {
+        feedStatusEl.textContent = 'OFFLINE';
+        feedStatusEl.className = 'feed-status-value error';
+      }
     }
-    if (lastFetchEl) lastFetchEl.textContent = formatDateTime(getIST());
+
+    if (lastFetchEl) {
+      lastFetchEl.textContent = formatDateTime(getIST());
+    }
+
+    // Update sources status indicators
     if (feedSourcesEl && sourcesStatus) {
       const sourceNames = Object.keys(sourcesStatus);
       let html = '';
       sourceNames.forEach(name => {
         const s = sourcesStatus[name];
         const cls = s === 'ok' ? 'online' : s === 'cached' ? 'warning' : 'offline';
-        html += '<span class="feed-source-dot ' + cls + '" title="' + name.toUpperCase() + ': ' + s + '"></span>';
+        const label = name.toUpperCase();
+        html += '<span class="feed-source-dot ' + cls + '" title="' + label + ': ' + s + '"></span>';
       });
       feedSourcesEl.innerHTML = html;
     }
@@ -156,73 +226,131 @@
     if (fetchInFlight) return;
     fetchInFlight = true;
     updateFeedStatus('loading', null);
+
     try {
-      const res = await fetch(CGI_BIN + '/feed.py', { method: 'GET', headers: { 'Accept': 'application/json' }, signal: AbortSignal.timeout(25000) });
+      const res = await fetch(CGI_BIN + '/feed.py', {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' },
+        signal: AbortSignal.timeout(30000)
+      });
+
       if (!res.ok) throw new Error('HTTP ' + res.status);
+
       const data = await res.json();
-      if (data.status !== 'ok' || !Array.isArray(data.entries)) throw new Error('Invalid response');
+
+      if (!Array.isArray(data.entries) || data.entries.length === 0) {
+        throw new Error('Empty response');
+      }
+
+      // Update timeline
       const entries = data.entries;
       const newEntryIds = new Set(entries.map(e => e.id));
+
+      // Clear and rebuild
       if (timelineList) {
+        // Determine which entries are new
         const fragment = document.createDocumentFragment();
-        entries.forEach(entry => { const isNew = !lastKnownEntryIds.has(entry.id); fragment.appendChild(createTimelineEntry(entry, isNew)); });
+        entries.forEach(entry => {
+          const isNew = !lastKnownEntryIds.has(entry.id);
+          fragment.appendChild(createTimelineEntry(entry, isNew));
+        });
+
         timelineList.innerHTML = '';
         timelineList.appendChild(fragment);
       }
-      if (eventCountEl) eventCountEl.textContent = String(data.entry_count || entries.length);
+
+      // Update entry count
+      if (eventCountEl) {
+        eventCountEl.textContent = String(data.entry_count || entries.length);
+      }
+
+      // Update banner + footer timestamps
       if (data.updated_display) {
         if (bannerTS) bannerTS.textContent = data.updated_display;
         if (footerTS) footerTS.textContent = data.updated_display;
       }
+
       lastKnownEntryIds = newEntryIds;
-      updateFeedStatus('ok', data.sources_status);
+
+      // Show LIVE if we got entries, PARTIAL if some sources failed
+      const srcStatus = data.sources_status || {};
+      const hasErrors = Object.values(srcStatus).some(s => s.startsWith && s.startsWith('error'));
+      updateFeedStatus(hasErrors ? 'partial' : 'ok', srcStatus);
       isFirstLoad = false;
+
     } catch (err) {
       console.error('[MERIDIAN] Feed fetch error:', err);
       updateFeedStatus('error', null);
+      // Don't clear existing entries on error — keep stale data visible
     } finally {
       fetchInFlight = false;
       fetchCountdown = 60;
     }
   }
 
+  // Countdown timer display
   function tickCountdown() {
     fetchCountdown--;
-    if (nextFetchEl) nextFetchEl.textContent = fetchCountdown + 's';
-    if (fetchCountdown <= 0) fetchFeed();
+    if (nextFetchEl) {
+      nextFetchEl.textContent = fetchCountdown + 's';
+    }
+    if (fetchCountdown <= 0) {
+      fetchFeed();
+    }
   }
 
+  // Initial fetch + polling
   fetchFeed();
   setInterval(tickCountdown, 1000);
 
+  // ============================================================
+  // ANALYTICS SYSTEM
+  // ============================================================
   const analyticsViewsEl    = document.getElementById('analytics-total');
   const analyticsTodayEl    = document.getElementById('analytics-today');
   const analyticsActiveEl   = document.getElementById('analytics-active');
   const analyticsSessionsEl = document.getElementById('analytics-sessions');
 
+  // Record initial pageview
   async function recordPageview() {
     try {
       await fetch(CGI_BIN + '/analytics.py', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ event: 'pageview', path: window.location.pathname || '/', referrer: document.referrer || '', user_agent: navigator.userAgent || '', screen_width: window.screen.width || 0, session_id: SESSION_ID })
+        body: JSON.stringify({
+          event: 'pageview',
+          path: window.location.pathname || '/',
+          referrer: document.referrer || '',
+          user_agent: navigator.userAgent || '',
+          screen_width: window.screen.width || 0,
+          session_id: SESSION_ID
+        })
       });
+    } catch (e) {
+      // Silent fail — analytics should never break the app
+    }
+  }
+
+  // Send heartbeat every 2 minutes to track active users
+  async function sendHeartbeat() {
+    try {
+      await fetch(CGI_BIN + '/analytics.py?action=heartbeat&session_id=' +
+                  encodeURIComponent(SESSION_ID));
     } catch (e) { /* silent */ }
   }
 
-  async function sendHeartbeat() {
-    try { await fetch(CGI_BIN + '/analytics.py?action=heartbeat&session_id=' + encodeURIComponent(SESSION_ID)); } catch (e) { /* silent */ }
-  }
-
+  // Fetch analytics summary and update UI
   async function fetchAnalytics() {
     try {
       const res = await fetch(CGI_BIN + '/analytics.py?action=summary');
       if (!res.ok) return;
       const data = await res.json();
+
       if (analyticsViewsEl) analyticsViewsEl.textContent = formatNumber(data.total_views || 0);
       if (analyticsTodayEl) analyticsTodayEl.textContent = formatNumber(data.today_views || 0);
       if (analyticsActiveEl) analyticsActiveEl.textContent = String(data.active_last_5min || 0);
       if (analyticsSessionsEl) analyticsSessionsEl.textContent = formatNumber(data.unique_sessions_today || 0);
+
     } catch (e) { /* silent */ }
   }
 
@@ -232,19 +360,45 @@
     return String(n);
   }
 
+  // Initial pageview + analytics fetch
   recordPageview();
   fetchAnalytics();
+
+  // Heartbeat every 2 minutes
   setInterval(sendHeartbeat, 120000);
+
+  // Refresh analytics every 60 seconds (aligned with feed)
   setInterval(fetchAnalytics, 60000);
 
+  // ============================================================
+  // SCROLL-REVEAL (re-applied after feed updates via MutationObserver)
+  // ============================================================
   if ('IntersectionObserver' in window) {
     const revealObserver = new IntersectionObserver(
-      (entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'none'; revealObserver.unobserve(entry.target); } }); },
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'none';
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
       { rootMargin: '0px 0px -40px 0px', threshold: 0.1 }
     );
+
+    // Observe new entries as they're added
     if (timelineList) {
       const mo = new MutationObserver((mutations) => {
-        mutations.forEach(m => { m.addedNodes.forEach(node => { if (node.nodeType === 1 && node.classList.contains('timeline-entry')) { node.style.opacity = '0'; node.style.transition = 'opacity 0.4s ease, transform 0.4s ease'; revealObserver.observe(node); } }); });
+        mutations.forEach(m => {
+          m.addedNodes.forEach(node => {
+            if (node.nodeType === 1 && node.classList.contains('timeline-entry')) {
+              node.style.opacity = '0';
+              node.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+              revealObserver.observe(node);
+            }
+          });
+        });
       });
       mo.observe(timelineList, { childList: true });
     }
